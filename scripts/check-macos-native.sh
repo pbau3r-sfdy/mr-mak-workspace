@@ -49,6 +49,7 @@ items=$(as 'set out to ""
   return out')
 [ "$items" = "Chat 1=1,Chat 2=2,Chat 3=3,Chat 4=4,Chat 5=5,Chat 6=6,Chat 7=7,Chat 8=8,Chat 9=9," ] && ok "Chats menu has Chat 1–9 on ⌘1–⌘9" || bad "Chats menu" "$items"
 if [[ "$(windows)" != *Chats* ]]; then skp "chat tabs readable" "Chats window is closed (the interactive run reopens it)"
+elif [ "$(tabcount)" -eq 0 ]; then skp "chat tabs readable" "no chats open yet"
 else [ -n "$(selected)" ] && ok "chat tabs readable ($(tabcount) open, selected: $(selected))" || bad "chat tabs readable"; fi
 [ "${1:-}" = "--passive" ] && { echo "== $pass passed, $fail failed, $skip skipped"; exit $((fail>0)); }
 
