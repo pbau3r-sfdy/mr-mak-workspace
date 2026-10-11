@@ -10,8 +10,9 @@
 #
 #   ./scripts/check-macos-native.sh            # all checks
 #   ./scripts/check-macos-native.sh --passive  # background-only checks (no focus)
+#   MRMAK_APP=Hangar ./scripts/check-macos-native.sh   # a rebranded build
 set -u
-APP="Mr. Mak Workspace"; PROC="mrmak-workspace"
+APP="${MRMAK_APP:-Mr. Mak Workspace}"; PROC="${MRMAK_PROC:-mrmak-workspace}"
 pass=0; fail=0; skip=0
 ok()   { echo "PASS  $1"; pass=$((pass+1)); }
 bad()  { echo "FAIL  $1${2:+ — $2}"; fail=$((fail+1)); }
