@@ -1,16 +1,18 @@
 import type { IDecoration, IMarker, ITheme, Terminal } from '@xterm/xterm'
 import type { AgentId } from './types'
+// Imported directly (not via ../brand) so Node can load this module in the service tests.
+import brand from '../../brand/brand.json' with { type: 'json' }
 
 export type TerminalAppearance = 'focus' | 'original'
 export type TerminalRole = 'user' | 'agent' | 'detail'
 export const roleColors = { user: '#a7c5df', agent: '#ecece9', detail: '#90949f' }
 export const originalTheme: ITheme = {
-  background: '#0c0d10', foreground: '#d7d8e1', cursor: '#f0a0b0', selectionBackground: '#f0a0b036',
+  background: brand.terminal.background, foreground: '#d7d8e1', cursor: brand.terminal.cursor, selectionBackground: brand.terminal.selection,
   black: '#252731', red: '#ed8a95', green: '#88d8bf', yellow: '#e6c88d', blue: '#89b7ed',
   magenta: '#b3a3f7', cyan: '#84c9d1', white: '#d7d8e1', brightBlack: '#727582', brightWhite: '#ffffff',
 }
 export const focusTheme: ITheme = {
-  background: '#0c0d10', foreground: roleColors.agent, cursor: '#bed0df', cursorAccent: '#0c0d10', selectionBackground: '#a7c5df35',
+  background: brand.terminal.background, foreground: roleColors.agent, cursor: '#bed0df', cursorAccent: brand.terminal.background, selectionBackground: '#a7c5df35',
   black: '#252731', brightBlack: '#90949f', white: '#d9dce1', brightWhite: '#f5f5f0',
   red: '#ce9b9f', brightRed: '#deb0b4', green: '#a6b9ae', brightGreen: '#bdcfc4',
   yellow: '#beb5a0', brightYellow: '#d4c9af', blue: '#a3b8cd', brightBlue: '#b5cadf',

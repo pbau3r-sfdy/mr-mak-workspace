@@ -1,3 +1,5 @@
+import { brand } from '../brand'
+
 export const CATEGORY_ICONS: Record<string, string> = {
   'image-gen': '\u{1F3A8}',
   'analytics': '\u{1F4CA}',
@@ -8,5 +10,6 @@ export const CATEGORY_ICONS: Record<string, string> = {
 }
 
 export function categoryIcon(category: string): string {
+  if (!brand.categoryEmoji) return ''
   return CATEGORY_ICONS[category] ?? '\u{1F4C1}'
 }

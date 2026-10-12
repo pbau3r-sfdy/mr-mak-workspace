@@ -1,3 +1,4 @@
+import { productName } from './brand.mjs';
 export function englishTitle(value, fallback = 'New conversation') {
   const title = String(value || '').trim().replace(/\s+/g, ' ').slice(0, 100) || fallback;
   if (/[^\x20-\x7e\u2013\u2014\u00b7\u2018\u2019\u201c\u201d]/u.test(title)) {
@@ -9,7 +10,7 @@ export function englishTitle(value, fallback = 'New conversation') {
 export function restoredTitle(value, index) {
   if (/^(codex|claude|opencode|kimi)$/i.test(value || '')) return `Conversation ${index + 1}`;
   try { return englishTitle(value, `Conversation ${index + 1}`); }
-  catch { return /голос/i.test(value || '') ? 'Mr. Mak voice' : `Conversation ${index + 1}`; }
+  catch { return /голос/i.test(value || '') ? `${productName} voice` : `Conversation ${index + 1}`; }
 }
 
 export function taskTitle(value) {

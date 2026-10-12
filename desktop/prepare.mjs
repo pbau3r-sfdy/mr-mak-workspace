@@ -64,6 +64,8 @@ const serviceSource = path.join(repo, 'desktop', 'service');
 await cp(serviceSource, path.join(runtime, 'service'), { recursive: true, filter: source => !path.relative(serviceSource, source).split(path.sep).some(part => ['node_modules', 'test', '.cache'].includes(part)) });
 // A checkout can itself live under a cache/worktree directory. Validate the
 // payload before npm can resolve an unrelated parent package.json.
+// The service reads names and the voice persona from brand.json next to its modules.
+await cp(path.join(repo, 'brand', 'brand.json'), path.join(runtime, 'service', 'brand.json'));
 for (const file of ['package.json', 'package-lock.json', 'main.mjs', 'server.mjs']) await access(path.join(runtime, 'service', file));
 run(['ci', '--omit=dev'], path.join(runtime, 'service'));
 // npm can unpack node-pty's macOS spawn-helper without the execute bit; terminals then fail with posix_spawnp.
@@ -77,7 +79,7 @@ if (process.platform === 'darwin') {
 await cp(path.join(repo, 'dist'), path.join(runtime, 'ui'), { recursive: true });
 // Vite deliberately does not copy the enormous workspace junction. Bundle only UI assets.
 try { await access(path.join(repo, 'public', 'assets')); await cp(path.join(repo, 'public', 'assets'), path.join(runtime, 'ui', 'assets'), { recursive: true }); } catch { /* Optional brand assets. */ }
-await writeFile(path.join(runtime, 'README.txt'), `Mr. Mak local runtime for ${process.platform}. User repositories, keys and CLI logins are not included.\n`);
+await writeFile(path.join(runtime, 'README.txt'), `${JSON.parse(await readFile(path.join(repo, 'brand', 'brand.json'), 'utf8')).name} local runtime for ${process.platform}. User repositories, keys and CLI logins are not included.\n`);
 const licenseCandidates = [
   path.join(path.dirname(process.execPath), 'LICENSE'),
   path.join(path.dirname(path.dirname(process.execPath)), 'LICENSE'),

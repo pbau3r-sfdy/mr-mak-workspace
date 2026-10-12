@@ -10,6 +10,7 @@ import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/
 import { SSEClientTransport } from '@modelcontextprotocol/sdk/client/sse.js';
 import { commandPath } from './agents.mjs';
 import { terminateProcessTree } from './platform.mjs';
+import { productName } from './brand.mjs';
 
 const key = value => path.resolve(value).replaceAll('\\', '/').toLowerCase();
 const digest = value => createHash('sha256').update(JSON.stringify(value)).digest('hex');
@@ -160,7 +161,7 @@ export class McpInventory {
   }
   async list() { return (await this.scan()).public; }
   async check(id) {
-    if (this.closed) throw new Error('Mr. Mak is closing.');
+    if (this.closed) throw new Error(`${productName} is closing.`);
     if (this.pending.has(id)) return this.pending.get(id).promise;
     if (this.pending.size >= 2) throw new Error('Two connection checks are running. Wait for one to finish.');
     const entry = (await this.scan()).raw.get(id);

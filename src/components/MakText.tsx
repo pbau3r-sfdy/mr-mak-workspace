@@ -1,10 +1,17 @@
 import { useRef, useEffect } from 'react'
+import { brand } from '../brand'
 
-// Render "Mr. Mak" as animated particle dots.
+// Render the brand wordmark ("Mr. Mak" by default) as animated particle dots,
+// or as static uppercase text when brand.wordmark.mode is "text".
 // Technique: draw text to an offscreen canvas, sample pixels, animate as particles.
 // Re-samples once webfonts finish loading so the glyphs stay crisp.
 
 export default function MakText({ height = 28, animated = true }: { height?: number; animated?: boolean }) {
+  if (brand.wordmark.mode === 'text') return <span className="brand-wordmark">{brand.wordmark.text}</span>
+  return <ParticleText height={height} animated={animated} />
+}
+
+function ParticleText({ height, animated }: { height: number; animated: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -29,14 +36,14 @@ export default function MakText({ height = 28, animated = true }: { height?: num
       const fontSize = height * 0.85
       const font = `700 ${fontSize}px "Inter", "Segoe UI", system-ui, sans-serif`
       offCtx.font = font
-      textW = Math.ceil(offCtx.measureText('Mr. Mak').width) + 4
+      textW = Math.ceil(offCtx.measureText(brand.wordmark.text).width) + 4
 
       offscreen.width = textW
       offscreen.height = textH
       offCtx.font = font
       offCtx.fillStyle = '#fff'
       offCtx.textBaseline = 'middle'
-      offCtx.fillText('Mr. Mak', 1, textH / 2)
+      offCtx.fillText(brand.wordmark.text, 1, textH / 2)
 
       const data = offCtx.getImageData(0, 0, textW, textH).data
       const pts: { x: number; y: number }[] = []

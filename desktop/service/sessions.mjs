@@ -13,6 +13,7 @@ import { englishTitle, restoredTitle } from './titles.mjs';
 import { defaultWorkerEffort, workerEfforts } from './effort.mjs';
 import { ptyOptions } from './platform.mjs';
 import { opencodeVersion, opencodeEnvironment, readOpencodeState, watchOpencode } from './opencode.mjs';
+import { productName } from './brand.mjs';
 
 const { Terminal } = headless;
 const publicSession = session => {
@@ -84,7 +85,7 @@ export class Sessions extends EventEmitter {
   }
 
   async create(options) {
-    if (this.closed) throw new Error('Mr. Mak is shutting down');
+    if (this.closed) throw new Error(`${productName} is shutting down`);
     if (this.active().length >= 80) throw new Error('Close a tab before opening another (80 open tab limit). Closed chats remain in History.');
     const agent = String(options.agent || 'codex');
     if (options.effort && !workerEfforts.includes(options.effort)) throw new Error('Reasoning effort must be medium, high, xhigh or max.');
@@ -300,9 +301,9 @@ export class Sessions extends EventEmitter {
   input(id, data, { coordinator = false, submit = false } = {}) {
     const session = this.get(id);
     if (!session.process) throw new Error('This terminal is stopped. Resume it before sending a message.');
-    if (coordinator && session.agent === 'shell') throw new Error('Mr. Mak can send messages to agent chats; type shell commands directly in the local shell.');
+    if (coordinator && session.agent === 'shell') throw new Error(`${productName} can send messages to agent chats; type shell commands directly in the local shell.`);
     if (typeof data !== 'string' || data.length > 64000) throw new Error('Message is too large');
-    if (coordinator && Date.now() - Date.parse(session.lastInputAt || 0) < 2500) throw new Error('You are typing in this chat. Wait a moment before sending through Mr. Mak.');
+    if (coordinator && Date.now() - Date.parse(session.lastInputAt || 0) < 2500) throw new Error(`You are typing in this chat. Wait a moment before sending through ${productName}.`);
     if (coordinator) {
       // Bracketed paste keeps multi-line text a single CLI prompt, then Enter submits it.
       const clean = data.replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/g, '').replaceAll('\r', '');
@@ -399,7 +400,7 @@ export class Sessions extends EventEmitter {
     setTimeout(() => { try { if (session.process === proc) proc.kill(); } catch { /* Process already exited. */ } }, 3500).unref();
   }
   async resume(id, nativeId) {
-    if (this.closed) throw new Error('Mr. Mak is shutting down');
+    if (this.closed) throw new Error(`${productName} is shutting down`);
     const session = this.get(id);
     if (session.stopping) await session.stopping;
     if (session.process) return publicSession(session);

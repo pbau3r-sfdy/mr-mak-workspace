@@ -1,0 +1,69 @@
+{
+  "name": "Mr. Mak",
+  "shortName": "Mak",
+  "logoName": "the nose",
+  "tagline": "your agents, close at hand",
+  "wordmark": {
+    "mode": "particles",
+    "text": "Mr. Mak",
+    "sub": "workspace"
+  },
+  "boot": {
+    "title": "Mr. Mak",
+    "subtitle": "Opening your workspace…"
+  },
+  "greetings": {
+    "late": "Burning the midnight oil, sir?",
+    "morning": "Good morning, sir.",
+    "afternoon": "Good day, sir.",
+    "evening": "Good evening, sir."
+  },
+  "home": {
+    "empty": "Nothing here yet. New work will appear as cards, sir.",
+    "loadError": "Could not load workspace.json — is the public/workspace link in place? Run npm run dev again, sir.",
+    "noMatches": "Nothing matches, sir."
+  },
+  "pinned": {
+    "label": "pinned",
+    "emoji": true
+  },
+  "categoryEmoji": true,
+  "sidebar": {
+    "reopenTooltip": "Show menu — press Mr. Mak's nose ( [ )"
+  },
+  "chats": {
+    "headerName": "Mr. Mak",
+    "empty": {
+      "eyebrow": "ROOM TO THINK",
+      "heading": "Your agents,\nclose at hand.",
+      "body": "A chat for each task.\nKeep this window beside whatever\nyou are working on.",
+      "button": "Open your first chat",
+      "footnote": "Your CLI accounts. Your local files."
+    },
+    "newChat": {
+      "eyebrow": "A PLACE FOR THE NEXT THING",
+      "heading": "New chat"
+    },
+    "resumeHelp": "For a conversation started outside Mr. Mak, copy its ID from your CLI's session details or resume picker. Chats created here return automatically."
+  },
+  "voice": {
+    "status": "At your service",
+    "welcome": "One conversation.\nAll your agents.",
+    "examples": "“Open the Dream Game chat.”\n“Ask Claude to check the animation.”"
+  },
+  "settings": {
+    "assistantLabel": "Mr. Mak",
+    "shortcutLabel": "{shortcut} shows {name}"
+  },
+  "persona": {
+    "name": "Mr. Mak",
+    "voiceStyle": "A small distinguished British gentleman piglet: a warm, slightly low masculine voice, crisp diction, understated dry wit and impeccable manners. Speak English by default, with a light British gentleman manner. Use the language the user requests. Keep a brisk conversational pace, without theatrical pauses, squeaking or exaggerated character acting. Use sir occasionally, never in every sentence.",
+    "rules": ""
+  },
+  "terminal": {
+    "cursor": "#f0a0b0",
+    "selection": "#f0a0b036",
+    "background": "#0c0d10"
+  },
+  "microphone": "Mr. Mak uses the microphone only while you record a voice message or talk to the voice coordinator."
+}

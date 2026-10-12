@@ -9,6 +9,7 @@ import ChatTabs from './ChatTabs'
 import { orderedChats, tabColors } from './chatOrder'
 import MobileAccess from './MobileAccess'
 import { isMac, isWindows, modKey, modLabel, shortcutLabel } from './platform'
+import { brand, lines } from '../brand'
 
 function NewChat({ close }: { close: () => void }) {
   const state = useDesktop()
@@ -28,11 +29,11 @@ function NewChat({ close }: { close: () => void }) {
     } catch (err) { setError(err instanceof Error ? err.message : String(err)); setBusy(false) }
   }
   return <div className="desk-scrim" onClick={close}><form className="desk-dialog" onClick={event => event.stopPropagation()} onSubmit={launch}>
-    <div className="desk-dialog-heading"><div><span className="desk-eyebrow">A PLACE FOR THE NEXT THING</span><h2>New chat</h2></div><button type="button" className="desk-icon" onClick={close} aria-label="Close"><Icon name="close" /></button></div>
+    <div className="desk-dialog-heading"><div><span className="desk-eyebrow">{brand.chats.newChat.eyebrow}</span><h2>{brand.chats.newChat.heading}</h2></div><button type="button" className="desk-icon" onClick={close} aria-label="Close"><Icon name="close" /></button></div>
     <div className="agent-picker">{state.agents.map(item => <button type="button" key={item.id} className={`agent-choice ${agent === item.id ? 'selected' : ''}`} onClick={() => setAgent(item.id)} disabled={!item.available} style={{ '--agent-color': item.color } as React.CSSProperties}><span className="agent-mark"><AgentLogo agent={item.id} size={23} /></span><span>{item.label}<small>{item.available ? item.id === 'shell' ? 'Local terminal' : item.id === 'opencode' ? 'Your providers' : 'Your CLI account' : 'Not installed'}</small></span>{agent === item.id && <span className="choice-check">✓</span>}</button>)}</div>
     <label className="desk-field">Chat name <small>English only</small><input autoFocus placeholder="e.g. Dream Game · animations" value={name} onChange={event => setName(event.target.value)} maxLength={100} /></label>
     <label className="desk-field">Working folder<input value={cwd} onChange={event => setCwd(event.target.value)} required spellCheck={false} /></label>
-    {agent !== 'shell' && <><label className="desk-check"><input type="checkbox" checked={bypass} onChange={event => setBypass(event.target.checked)} /><span>{agent === 'opencode' ? 'Auto-approve permission prompts' : 'Bypass agent permission prompts'}<small>{agent === 'opencode' ? 'Explicit deny rules in OpenCode still apply.' : `Same ${isMac ? 'macOS' : isWindows ? 'Windows' : 'user'} account and file access as your usual terminal.`}</small></span></label><details className="desk-details"><summary>Resume an existing CLI conversation</summary><p>For a conversation started outside Mr. Mak, copy its ID from your CLI's session details or resume picker. Chats created here return automatically.</p><label className="desk-field">Native session ID<input value={resumeId} onChange={event => setResumeId(event.target.value)} placeholder="Optional session ID" /></label></details></>}
+    {agent !== 'shell' && <><label className="desk-check"><input type="checkbox" checked={bypass} onChange={event => setBypass(event.target.checked)} /><span>{agent === 'opencode' ? 'Auto-approve permission prompts' : 'Bypass agent permission prompts'}<small>{agent === 'opencode' ? 'Explicit deny rules in OpenCode still apply.' : `Same ${isMac ? 'macOS' : isWindows ? 'Windows' : 'user'} account and file access as your usual terminal.`}</small></span></label><details className="desk-details"><summary>Resume an existing CLI conversation</summary><p>{brand.chats.resumeHelp}</p><label className="desk-field">Native session ID<input value={resumeId} onChange={event => setResumeId(event.target.value)} placeholder="Optional session ID" /></label></details></>}
     {error && <p className="desk-error-inline" role="alert">{error}</p>}
     <button className="desk-primary" disabled={busy || !state.connected}>{busy ? 'Opening…' : 'Open chat'}<Icon name="arrow" size={16} /></button>
   </form></div>
@@ -99,7 +100,7 @@ export default function Chats() {
     return () => { clearTimeout(timer); window.removeEventListener('focus', viewed); window.removeEventListener('blur', viewed); document.removeEventListener('visibilitychange', viewed) }
   }, [state.connected, session?.id, session?.unread, session?.completionVersion, history, switcher, newChat])
   useEffect(() => {
-    document.title = 'Mr. Mak — Chats'
+    document.title = `${brand.name} — Chats`
     const shortcut = (event: KeyboardEvent) => {
       if (modKey(event) && event.shiftKey && event.code === 'KeyT') { event.preventDefault(); setNewChat(true) }
       if (modKey(event) && event.shiftKey && event.code === 'KeyP') { event.preventDefault(); setSwitcher(value => !value) }
@@ -130,7 +131,7 @@ export default function Chats() {
   async function rename(event: React.FormEvent) { event.preventDefault(); if (!session) return; try { await api(`/sessions/${session.id}`, { name: title }, 'PATCH'); setRenaming(false) } catch (error) { reportError(error) } }
 
   return <div className="chats-surface">
-    <header className="chats-header"><div className="chats-brand"><Nose size={25} tone="black" /><span>Mr. Mak <b>Chats</b></span></div><div className="chats-header-actions"><MobileAccess /><button className={`desk-icon ${pinned ? 'active' : ''}`} title="Keep Chats above other windows" onClick={() => { setPinned(!pinned); windowAction('chats', 'pin', !pinned) }}><Icon name="pin" size={16} /></button><button className="desk-icon" title="Show Workspace" onClick={() => windowAction('workspace')}><Icon name="workspace" size={18} /></button></div></header>
+    <header className="chats-header"><div className="chats-brand"><Nose size={25} tone="black" /><span>{brand.chats.headerName} <b>Chats</b></span></div><div className="chats-header-actions"><MobileAccess /><button className={`desk-icon ${pinned ? 'active' : ''}`} title="Keep Chats above other windows" onClick={() => { setPinned(!pinned); windowAction('chats', 'pin', !pinned) }}><Icon name="pin" size={16} /></button><button className="desk-icon" title="Show Workspace" onClick={() => windowAction('workspace')}><Icon name="workspace" size={18} /></button></div></header>
     <div className="chat-tabs-row"><ChatTabs items={active} selectedId={session?.id} agents={state.agents} choose={choose} close={closeChat} /><div className="chat-tab-actions"><button className="desk-icon new-chat-button" onClick={() => setNewChat(true)} title={`New chat · ${shortcutLabel('Shift+T')}`} aria-label="New chat"><Icon name="plus" /></button><button className={`desk-icon ${switcher ? 'active' : ''}`} onClick={() => { setSwitcher(value => !value); setHistory(false) }} title={`Find a chat · ${shortcutLabel('Shift+P')}`} aria-label="Find a chat"><Icon name="search" size={16} /></button><button className={`history-button ${history ? 'active' : ''}`} onClick={() => { setHistory(value => !value); setSwitcher(false); setMenu(false) }} title={`History · ${shortcutLabel('Shift+H')}`}><Icon name="history" size={15} /><span>History</span></button></div></div>
     <div className="chat-body">
     {history && <History close={() => setHistory(false)} choose={choose} />}
@@ -141,7 +142,7 @@ export default function Chats() {
       <TerminalPane key={session.id} id={session.id} agent={session.agent} fontSize={fontSize} appearance={state.settings.terminalAppearance || 'focus'} onAttachmentStatus={attachmentStatus} />
       {!running && <div className="terminal-reconnect"><span>{session.restoreError || 'Reconnecting to your conversation…'}</span><button onClick={() => api(`/sessions/${session.id}/resume`, {}).catch(reportError)}>Reconnect</button></div>}
       <footer className="chat-status">{attachmentNotice.id === session.id && attachmentNotice.text ? <span className="attachment-status" role="status"><Icon name="attach" size={12} /><span>{attachmentNotice.text}</span></span> : <><span><i className={state.connected ? 'connected-dot' : 'disconnected-dot'} />{state.connected ? running ? 'Connected · autosaved' : 'Reconnecting…' : 'Reconnecting…'}</span><span title={session.effort ? 'Reasoning effort · terminal permissions' : undefined}>{session.effort && `${session.effort} · `}{session.agent === 'shell' ? (isMac ? 'macOS' : isWindows ? 'Windows' : 'Local') : session.bypass ? 'Bypass' : 'CLI permissions'}</span><span className="status-shortcut">{modLabel}V · image</span></>}</footer>
-    </> : <div className="chats-empty"><div className="empty-orbit"><Nose size={64} tone="black" /></div><span className="desk-eyebrow">ROOM TO THINK</span><h1>Your agents,<br />close at hand.</h1><p>A chat for each task.<br />Keep this window beside whatever<br />you are working on.</p><button className="desk-primary" onClick={() => setNewChat(true)}><Icon name="plus" size={17} />Open your first chat</button><div className="empty-agent-names"><span>Claude</span><span>Codex</span><span>OpenCode</span><span>Kimi</span></div><small>Your CLI accounts. Your local files.</small></div>}
+    </> : <div className="chats-empty"><div className="empty-orbit"><Nose size={64} tone="black" /></div><span className="desk-eyebrow">{brand.chats.empty.eyebrow}</span><h1>{lines(brand.chats.empty.heading)}</h1><p>{lines(brand.chats.empty.body)}</p><button className="desk-primary" onClick={() => setNewChat(true)}><Icon name="plus" size={17} />{brand.chats.empty.button}</button><div className="empty-agent-names"><span>Claude</span><span>Codex</span><span>OpenCode</span><span>Kimi</span></div><small>{brand.chats.empty.footnote}</small></div>}
     </div>
     {newChat && <NewChat close={() => setNewChat(false)} />}
   </div>

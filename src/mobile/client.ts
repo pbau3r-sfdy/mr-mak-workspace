@@ -1,6 +1,7 @@
 import { useSyncExternalStore } from 'react'
 import type { AgentInfo, ChatSession } from '../desktop/types'
 import { clearVoiceDrafts, type VoiceDraft } from './voice-drafts'
+import { brand } from '../brand'
 
 export interface DictationInfo { available: boolean; provider: string | null; maxSeconds: number; maxBytes: number }
 
@@ -63,7 +64,7 @@ export async function startMobile() {
     ws.onerror = () => ws.close()
     clearInterval(heartbeat); heartbeat = window.setInterval(() => mobileEvent({ type: 'ping' }), 15000)
   } catch (error) {
-    update({ ready: true, connected: false, error: error instanceof MobileError && error.status === 401 ? '' : 'Your computer is unavailable. Keep Mr. Mak running and Tailscale connected.' })
+    update({ ready: true, connected: false, error: error instanceof MobileError && error.status === 401 ? '' : `Your computer is unavailable. Keep ${brand.name} running and Tailscale connected.` })
     if (!(error instanceof MobileError && error.status === 401)) reconnect()
   } finally { starting = false }
 }

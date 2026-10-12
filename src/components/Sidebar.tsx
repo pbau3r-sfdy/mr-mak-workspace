@@ -6,6 +6,7 @@ import { contentUrl } from '../desktop/client'
 import MakLogo from './MakLogo'
 import MakText from './MakText'
 import { EntityStatusButton } from './EntityControls'
+import { brand } from '../brand'
 
 interface SidebarProps {
   pinned: WorkspaceEntity[]
@@ -64,7 +65,7 @@ export default function Sidebar({
         <MakLogo size={54} animated={activeId !== 'my-dream-game'} />
         <div className="brand-text">
           <MakText height={26} animated={activeId !== 'my-dream-game'} />
-          <span className="brand-sub">workspace</span>
+          <span className="brand-sub">{brand.wordmark.sub}</span>
         </div>
         <button
           className="sidebar-collapse"
@@ -104,7 +105,7 @@ export default function Sidebar({
         {pinned.length > 0 && (
           <div>
             <div className="sidebar-section">
-              <span className="sidebar-label">{'\u{1F4CC}'} pinned</span>
+              <span className="sidebar-label">{brand.pinned.emoji && '\u{1F4CC} '}{brand.pinned.label}</span>
             </div>
             {pinned.map(e => (
               <Item key={e.id} entity={e} active={e.id === activeId} />
@@ -124,7 +125,7 @@ export default function Sidebar({
           </div>
         ))}
 
-        {empty && <div className="sidebar-empty">Nothing matches, sir.</div>}
+        {empty && <div className="sidebar-empty">{brand.home.noMatches}</div>}
 
         {archivedCount > 0 && !query && (
           <button className="sidebar-archive-toggle" onClick={onToggleArchived}>

@@ -2,6 +2,7 @@ import type { WorkspaceEntity } from '../types'
 import { categoryIcon } from '../lib/categories'
 import MakCard from './MakCard'
 import MakLogo from './MakLogo'
+import { brand } from '../brand'
 
 interface HomeGridProps {
   entities: WorkspaceEntity[]
@@ -14,10 +15,10 @@ interface HomeGridProps {
 
 function greeting(): string {
   const h = new Date().getHours()
-  if (h < 5) return 'Burning the midnight oil, sir?'
-  if (h < 12) return 'Good morning, sir.'
-  if (h < 18) return 'Good day, sir.'
-  return 'Good evening, sir.'
+  if (h < 5) return brand.greetings.late
+  if (h < 12) return brand.greetings.morning
+  if (h < 18) return brand.greetings.afternoon
+  return brand.greetings.evening
 }
 
 export default function HomeGrid({
@@ -56,7 +57,7 @@ export default function HomeGrid({
       {pinned.length > 0 && (
         <section className="home-section">
           <div className="section-head">
-            <span className="section-title">{'\u{1F4CC}'} pinned</span>
+            <span className="section-title">{brand.pinned.emoji && '\u{1F4CC} '}{brand.pinned.label}</span>
             <span className="section-count">{pinned.length}</span>
           </div>
           <div className="card-grid">
@@ -86,8 +87,8 @@ export default function HomeGrid({
       {shown === 0 && !searching && (
         <div className="home-empty">
           {offline
-            ? 'Could not load workspace.json — is the public/workspace link in place? Run npm run dev again, sir.'
-            : 'Nothing here yet. New work will appear as cards, sir.'}
+            ? brand.home.loadError
+            : brand.home.empty}
         </div>
       )}
     </div>

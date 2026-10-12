@@ -1,9 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
+import brand from './brand/brand.json'
 
 export default defineConfig({
-  plugins: [react()],
+  // index.html carries %BRAND_NAME% until the app sets its own title.
+  plugins: [react(), { name: 'brand-name', transformIndexHtml: html => html.replaceAll('%BRAND_NAME%', brand.name) }],
   server: {
     port: 3009,
     open: true,

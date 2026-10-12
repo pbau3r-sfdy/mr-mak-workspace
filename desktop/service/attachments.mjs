@@ -2,6 +2,7 @@ import path from 'node:path';
 import { mkdir, open, readFile, realpath, stat, writeFile } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
 import { within } from './util.mjs';
+import { productName } from './brand.mjs';
 
 export const MAX_IMAGE_BYTES = 25 * 1024 * 1024;
 function imageExtension(data) {
@@ -41,9 +42,9 @@ export class Attachments {
     if (!within(repo, root)) throw new Error('The attachments folder must stay inside MR-MAK.');
     const result = [];
     for (const file of files) {
-      if (typeof file !== 'string' || !path.isAbsolute(file) || /[\x00-\x1f\x7f]/.test(file)) throw new Error('Choose an image uploaded through Mr. Mak.');
+      if (typeof file !== 'string' || !path.isAbsolute(file) || /[\x00-\x1f\x7f]/.test(file)) throw new Error(`Choose an image uploaded through ${productName}.`);
       const actual = await realpath(file);
-      if (!within(root, actual)) throw new Error('Choose an image uploaded through Mr. Mak.');
+      if (!within(root, actual)) throw new Error(`Choose an image uploaded through ${productName}.`);
       const handle = await open(actual, 'r');
       try {
         const info = await handle.stat();
