@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useLayoutEffect, useRef, useState
 import { createPortal } from 'react-dom'
 import type { WorkspaceEntity } from '../types'
 import { updateWorkspaceEntity, type EntityPatch } from '../lib/workspace'
-import { CATEGORY_ICONS } from '../lib/categories'
+import { CATEGORY_ICONS, categoryLabel } from '../lib/categories'
 import { isDesktop } from '../desktop/client'
 import './entity-controls.css'
 
@@ -108,7 +108,7 @@ function EntityMenu({ entity, entities, target, onClose, onChanged }: {
       <label className="entity-category-control">
         Category
         <select aria-label="Card category" value={category} disabled={saving} onChange={event => void save({ category: event.target.value })}>
-          {categories.map(value => <option key={value} value={value}>{value.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</option>)}
+          {categories.map(value => <option key={value} value={value}>{categoryLabel(value) ?? value.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</option>)}
         </select>
       </label>
       <button type="button" className="entity-pin-toggle" disabled={saving} onClick={() => void save({ pinned: !entity.pinned })}>

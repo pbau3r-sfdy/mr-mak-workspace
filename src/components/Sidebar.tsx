@@ -1,7 +1,7 @@
 import type { RefObject } from 'react'
 import type { WorkspaceEntity } from '../types'
 import { entityHash } from '../lib/route'
-import { categoryIcon } from '../lib/categories'
+import { categoryIcon, categoryLabel } from '../lib/categories'
 import { contentUrl } from '../desktop/client'
 import MakLogo from './MakLogo'
 import MakText from './MakText'
@@ -116,7 +116,7 @@ export default function Sidebar({
         {[...grouped.entries()].map(([cat, list]) => (
           <div key={cat}>
             <div className="sidebar-section">
-              <span className="sidebar-label">{cat.replace(/-/g, ' ')}</span>
+              <span className="sidebar-label">{categoryLabel(cat) ?? cat.replace(/-/g, ' ')}</span>
               <span className="sidebar-count">{list.length}</span>
             </div>
             {list.map(e => (

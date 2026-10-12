@@ -28,6 +28,7 @@
     "emoji": true
   },
   "categoryEmoji": true,
+  "categories": {},
   "sidebar": {
     "reopenTooltip": "Show menu — press Mr. Mak's nose ( [ )"
   },

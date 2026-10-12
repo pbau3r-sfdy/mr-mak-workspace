@@ -29,6 +29,7 @@ placeholders listed below.
 | `home.noMatches` | Sidebar search without results |
 | `pinned.label` | Pinned section heading (sidebar and home) |
 | `pinned.emoji` | Show 📌 before the pinned heading |
+| `categories` | Display name per category id, e.g. `{"game": "Project"}`; ids in workspace.json stay unchanged. Empty: names derive from the ids |
 | `categoryEmoji` | Show category emoji in chips, sidebar and home sections |
 | `sidebar.reopenTooltip` | Tooltip of the button that reopens the collapsed sidebar |
 | `chats.headerName` | Chats window header (`{headerName} Chats`) and mobile hints |

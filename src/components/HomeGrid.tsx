@@ -1,5 +1,5 @@
 import type { WorkspaceEntity } from '../types'
-import { categoryIcon } from '../lib/categories'
+import { categoryIcon, categoryLabel } from '../lib/categories'
 import MakCard from './MakCard'
 import MakLogo from './MakLogo'
 import { brand } from '../brand'
@@ -72,7 +72,7 @@ export default function HomeGrid({
         <section key={cat} className="home-section">
           <div className="section-head">
             <span className="section-title">
-              {categoryIcon(cat)} {cat.replace(/-/g, ' ')}
+              {categoryIcon(cat)} {categoryLabel(cat) ?? cat.replace(/-/g, ' ')}
             </span>
             <span className="section-count">{list.length}</span>
           </div>

@@ -1,6 +1,6 @@
 import type { WorkspaceEntity } from '../types'
 import { entityHash } from '../lib/route'
-import { categoryIcon } from '../lib/categories'
+import { categoryIcon, categoryLabel } from '../lib/categories'
 import { contentUrl } from '../desktop/client'
 import { EntityStatusButton } from './EntityControls'
 
@@ -22,7 +22,7 @@ export default function MakCard({ entity }: { entity: WorkspaceEntity }) {
       <div className="card-top">
         <span className="chip">
           <span aria-hidden="true">{categoryIcon(entity.category)}</span>
-          {entity.category || 'other'}
+          {categoryLabel(entity.category || 'other') ?? (entity.category || 'other')}
         </span>
         {entity.pinned && <span className="chip chip-pin">pinned</span>}
       </div>
