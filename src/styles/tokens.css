@@ -10,6 +10,7 @@
   /* ── Surfaces ── */
   --bg: #0a0a0c;
   --bg-deep: #060608;
+  --bg-content: #101115; /* Workspace content and report frame, matches report pages */
   --surface-1: rgba(255, 255, 255, 0.03);
   --surface-2: rgba(255, 255, 255, 0.055);
   --surface-3: rgba(255, 255, 255, 0.09);
@@ -62,6 +63,11 @@
   /* ── Depth & glow ── */
   --shadow-1: 0 2px 10px rgba(0, 0, 0, 0.35);
   --shadow-2: 0 6px 24px rgba(0, 0, 0, 0.45);
+  /* floating buttons over content (voice button, sidebar reopen); the logo floats bare by default */
+  --float-bg: transparent;
+  --float-border: transparent;
+  --float-shadow: none;
+  --float-logo: 50px;
   --glow-pink: 0 0 28px rgba(240, 160, 176, 0.14);
   --glow-pink-strong: 0 0 36px rgba(240, 160, 176, 0.22);
   --glow-amber: 0 0 24px rgba(234, 181, 110, 0.12);

@@ -38,9 +38,9 @@ html[data-workspace-theme=light] .content{background:var(--bg)}
 html[data-workspace-theme=light] .report-frame,html[data-workspace-theme=light] .file-preview-body iframe{background:#fff;color-scheme:light}
 html[data-workspace-theme=light] .workspace-root .sidebar{box-shadow:20px 0 60px #18213614}
 html[data-workspace-theme=light] .app-layout .step-tab{border-color:var(--hairline);color:var(--text-dim)}
-html[data-workspace-theme=light] .app-layout .step-tab.active{border-color:#98445e50;background:var(--pink-dim);color:var(--pink-bright)}
+html[data-workspace-theme=light] .app-layout .step-tab.active{border-color:color-mix(in srgb,var(--pink) 31.4%,transparent);background:var(--pink-dim);color:var(--pink-bright)}
 html[data-workspace-theme=light] .home .entity-card{background:#fff;border-color:var(--hairline-strong);box-shadow:var(--shadow-1)}
-html[data-workspace-theme=light] .home .entity-card:hover{background:#fff;border-color:#98445e60;box-shadow:var(--shadow-2)}
+html[data-workspace-theme=light] .home .entity-card:hover{background:#fff;border-color:color-mix(in srgb,var(--pink) 37.6%,transparent);box-shadow:var(--shadow-2)}
 html[data-workspace-theme=light] .home .entity-card .card-desc{color:var(--text-dim)}
 html[data-workspace-theme=light] .home .entity-card .card-foot{color:var(--text-muted);border-color:var(--hairline)}
 html[data-workspace-theme=light] .report-document,html[data-workspace-theme=light] .report-document>.report-loading,
@@ -60,7 +60,7 @@ html[data-workspace-theme=light] .report-error-actions button{background:#f1f3f7
 html[data-workspace-theme=light] .report-error details{color:var(--text-dim)}
 html[data-workspace-theme=light] .document-toolbar,html[data-workspace-theme=light] .file-preview>header{border-color:var(--hairline-strong);background:#fafbfc;color:var(--text)}
 html[data-workspace-theme=light] .document-toolbar button{color:var(--text-dim);background:#fff;border-color:var(--hairline-strong)}
-html[data-workspace-theme=light] .document-toolbar button[aria-pressed=true],html[data-workspace-theme=light] .document-save:not(:disabled){background:var(--pink-dim);color:var(--pink-bright);border-color:#98445e50}
+html[data-workspace-theme=light] .document-toolbar button[aria-pressed=true],html[data-workspace-theme=light] .document-save:not(:disabled){background:var(--pink-dim);color:var(--pink-bright);border-color:color-mix(in srgb,var(--pink) 31.4%,transparent)}
 html[data-workspace-theme=light] .file-preview-body>pre{background:#fff;color:var(--text)}
 html[data-workspace-theme=light] .file-preview>header small{color:var(--text-muted)}
 html[data-workspace-theme=light] .report-image{background:#f2f4f7;color:var(--text)}
@@ -82,7 +82,7 @@ html[data-workspace-theme=light] :is(.settings-scroll select,.file-path,.mcp-fil
 html[data-workspace-theme=light] :is(.file-mode,.mcp-server){background:#f5f6f9;border-color:var(--hairline)}
 html[data-workspace-theme=light] :is(.file-mode button,.file-shortcuts button,.skill-locations button,.mcp-filters label){color:var(--text-dim)}
 html[data-workspace-theme=light] :is(.file-shortcuts button,.skill-locations button,.mcp-check button){background:#fff;border-color:var(--hairline-strong)}
-html[data-workspace-theme=light] :is(.file-row.selected,.file-mode button.selected,.skill-locations button[aria-pressed=true]){background:var(--pink-dim);color:var(--pink-bright);border-color:#98445e50}
+html[data-workspace-theme=light] :is(.file-row.selected,.file-mode button.selected,.skill-locations button[aria-pressed=true]){background:var(--pink-dim);color:var(--pink-bright);border-color:color-mix(in srgb,var(--pink) 31.4%,transparent)}
 html[data-workspace-theme=light] .file-row:hover{background:var(--surface-2)}
 html[data-workspace-theme=light] :is(.file-row>svg,.file-reveal,.file-path button,.mcp-provider,.mcp-sources button,.mcp-check button,.files-panel .mcp-footer button){color:var(--pink)}
 html[data-workspace-theme=light] .file-path input{color:var(--text)}

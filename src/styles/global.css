@@ -3,7 +3,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html, body, #root { height: 100%; }
-html { background: #101115; color-scheme: dark; }
+html { background: var(--bg-content); color-scheme: dark; }
 * { scrollbar-width: thin; scrollbar-color: #514c59 #111217; }
 
 body {
@@ -23,9 +23,9 @@ body::before {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(520px 420px at 12% -4%, rgba(240, 160, 176, 0.08), transparent 65%),
-    radial-gradient(720px 560px at 96% 104%, rgba(183, 148, 244, 0.065), transparent 65%),
-    radial-gradient(900px 500px at 55% 120%, rgba(240, 160, 176, 0.03), transparent 70%);
+    radial-gradient(520px 420px at 12% -4%, color-mix(in srgb,var(--pink) 8%,transparent), transparent 65%),
+    radial-gradient(720px 560px at 96% 104%, color-mix(in srgb,var(--purple) 6.5%,transparent), transparent 65%),
+    radial-gradient(900px 500px at 55% 120%, color-mix(in srgb,var(--pink) 3%,transparent), transparent 70%);
 }
 
 /* Grain — barely-there film noise so the dark fields don't band */
@@ -42,7 +42,7 @@ body::after {
 
 a { color: var(--pink); text-decoration: none; }
 
-::selection { background: rgba(240, 160, 176, 0.3); }
+::selection { background: color-mix(in srgb,var(--pink) 30%,transparent); }
 
 a:focus-visible,
 button:focus-visible {
@@ -114,7 +114,7 @@ button:focus-visible {
 .sidebar-collapse:hover {
   background: var(--surface-2);
   color: var(--text-bright);
-  border-color: rgba(240, 160, 176, 0.45);
+  border-color: color-mix(in srgb,var(--pink) 45%,transparent);
 }
 
 /* the floating Mr. Mak nose that brings the menu back — only when collapsed */
@@ -131,7 +131,8 @@ button:focus-visible {
   padding: 3px;
   border: 1px solid var(--hairline);
   border-radius: 50%;
-  background: transparent;
+  background: var(--float-bg);
+  box-shadow: var(--float-shadow);
   backdrop-filter: blur(14px);
   cursor: pointer;
   opacity: 0.85;
@@ -163,6 +164,17 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
   gap: 3px;
+}
+
+/* static wordmark (brand.wordmark.mode "text") */
+.brand-wordmark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text-bright);
 }
 
 .brand-sub {
@@ -203,7 +215,7 @@ button:focus-visible {
 .sidebar-search input::placeholder { color: var(--text-muted); }
 .sidebar-search input:focus {
   outline: none;
-  border-color: rgba(240, 160, 176, 0.45);
+  border-color: color-mix(in srgb,var(--pink) 45%,transparent);
   background: var(--surface-2);
   box-shadow: var(--glow-pink);
 }
@@ -310,7 +322,7 @@ button:focus-visible {
 }
 .status-dot.active {
   background: var(--purple);
-  box-shadow: 0 0 8px rgba(183, 148, 244, 0.6);
+  box-shadow: 0 0 8px color-mix(in srgb,var(--purple) 60%,transparent);
 }
 .status-dot.done { background: var(--green); }
 .status-dot.archived { background: var(--text-muted); }
@@ -444,7 +456,7 @@ button:focus-visible {
 .app-layout:not([data-entity="my-dream-game"]) .topbar:has(.step-tabs) .topbar-right{width:100%;margin:0;align-items:flex-start}
 .app-layout:not([data-entity="my-dream-game"]) .step-tabs{flex:1;background:transparent;border:0;gap:5px;padding:0}
 .app-layout:not([data-entity="my-dream-game"]) .step-tab{border:1px solid #ffffff0c;padding:6px 10px;color:#a59dab;border-radius:7px}
-.app-layout:not([data-entity="my-dream-game"]) .step-tab.active{border-color:#f0a0b036;color:#f7bbca;background:#f0a0b012}
+.app-layout:not([data-entity="my-dream-game"]) .step-tab.active{border-color:color-mix(in srgb,var(--pink) 21.2%,transparent);color:color-mix(in srgb,var(--pink) 63%,var(--text));background:color-mix(in srgb,var(--pink) 7.1%,transparent)}
 
 .step-tab {
   padding: 4px 12px;
@@ -487,7 +499,7 @@ button:focus-visible {
 }
 .open-ext:hover {
   color: var(--pink);
-  border-color: rgba(240, 160, 176, 0.4);
+  border-color: color-mix(in srgb,var(--pink) 40%,transparent);
   box-shadow: var(--glow-pink);
 }
 
@@ -496,22 +508,22 @@ button:focus-visible {
   flex: 1;
   position: relative;
   overflow: hidden;
-  background: #101115;
+  background: var(--bg-content);
 }
 
-.report-document { position: relative; height: 100%; min-height: 0; background: #101115; }
+.report-document { position: relative; height: 100%; min-height: 0; background: var(--bg-content); }
 .report-error { padding: 32px; max-width: 760px; line-height: 1.7; }
 .report-error-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0; }
-.report-error-actions button { padding: 8px 14px; border: 1px solid #ffffff25; border-radius: 6px; background: #24212a; color: #f4eaf0; cursor: pointer; }
+.report-error-actions button { padding: 8px 14px; border: 1px solid #ffffff25; border-radius: 6px; background: #24212a; color: color-mix(in srgb,var(--pink) 2%,var(--text)); cursor: pointer; }
 .report-error details { color: #aaa2b2; }
 .report-error pre { white-space: pre-wrap; overflow-wrap: anywhere; margin-top: 12px; }
-.report-document > .report-loading { position: absolute; inset: 0; background: #101115; }
+.report-document > .report-loading { position: absolute; inset: 0; background: var(--bg-content); }
 .report-frame {
   display: block;
   width: 100%;
   height: 100%;
   border: none;
-  background: #101115;
+  background: var(--bg-content);
   color-scheme: dark;
   visibility: hidden;
   opacity: 0;
@@ -789,7 +801,7 @@ button:focus-visible {
   appearance: none;
   text-overflow: ellipsis;
 }
-.c3d-select:hover { border-color: rgba(240, 160, 176, 0.4); }
+.c3d-select:hover { border-color: color-mix(in srgb,var(--pink) 40%,transparent); }
 .c3d-select:focus-visible { outline: 1px solid var(--pink); outline-offset: 1px; }
 /* The open list is drawn by the OS, not by us. It ignores background on
    `option` and inherits the closed control's colour, which gave pale pink on
